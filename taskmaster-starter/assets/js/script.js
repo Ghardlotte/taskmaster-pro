@@ -45,10 +45,6 @@ var saveTasks = function() {
   localStorage.setItem("tasks", JSON.stringify(tasks));
 };
 
-tasks.toDo[0].text = " walk the dog";
-tasks[status][index].text = text;
-saveTask();
-
 $(".list-group").on("click", "p", function(){
   var text = $(this)
   .text()
@@ -79,8 +75,19 @@ $(".list-group").on("blur", "textarea", function(){
   var index = $(this)
   .closest(".list-group-item")
   .index();
-});
 
+
+tasks[status][index].text = text;
+saveTasks();
+
+// recreate p element
+var taskP = $("<p>")
+  .addClass("m-1")
+  .text(text);
+
+// replace textarea with p element
+$(this).replaceWith(taskP);
+});
 // value of due date was changed
 $(".list-group").on("blur", "input[type='text']", function() {
   // get current text
@@ -113,13 +120,7 @@ $(".list-group").on("blur", "input[type='text']", function() {
 });
 
 
-// recreate p element
-var taskP = $("<p>")
-  .addClass("m-1")
-  .text(text);
 
-// replace textarea with p element
-$(this).replaceWith(taskP);
 
 
 
